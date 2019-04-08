@@ -2,11 +2,11 @@
 /* eslint-disable no-unused-expressions, global-require, no-console */
 
 import yargs from 'yargs'
+import shell from 'shelljs'
 
 yargs
   .command({
     command: 'start',
-    aliases: ['s'],
     desc: 'Start the server',
     builder: (yrgs) => {
       yrgs
@@ -19,6 +19,13 @@ yargs
     handler: (argv) => {
       process.env.PORT = argv.p
       require('./server.js')
+    },
+  })
+  .command({
+    command: 'show',
+    desc: 'Show the output of neofetch',
+    handler: () => {
+      shell.exec('neofetch', { silent: false })
     },
   })
   .demandCommand(1, 'You need to specify one command')
