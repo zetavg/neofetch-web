@@ -26,7 +26,7 @@ app.use(async (ctx) => {
   cache.time = currentTime
 })
 
-const server = app.listen(port)
+const server = app.listen(port, '0.0.0.0')
 console.log(`Server listening on ${port}`)
 
 process.on('SIGINT', () => {
