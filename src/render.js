@@ -43,13 +43,62 @@ html, body, .wrapper, .container {
   align-content: center;
 }
 
-.logo-block {
-  margin-right: 2em;
+.logo-block, .info-text-block {
+  margin: 0 1em 0;
 }
 
 .content {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
   font-size: 12pt;
+}
+
+@media (max-width: 700px) and (max-height: 1000px) {
+  .container {
+    display: block;
+  }
+
+  .logo-block, .info-text-block {
+    margin: auto;
+    padding: 0 1em 0;
+  }
+
+  .logo-block {
+    margin-top: 1em;
+  }
+
+  .info-text-block {
+    padding-bottom: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    font-size: 11pt;
+  }
+}
+
+@media (max-width: 560px) {
+  .content {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    font-size: 9pt;
+  }
+}
+
+@media (max-width: 472px) {
+  .content {
+    font-size: 8pt;
+  }
+}
+
+@media (max-width: 374px) {
+  .container, .content {
+     display: block;
+  }
 }
 
 .bold {
