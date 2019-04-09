@@ -75,6 +75,10 @@ html, body, .wrapper, .container {
   .content {
     font-size: 11pt;
   }
+
+  .info-text-block {
+    word-break: break-word;
+  }
 }
 
 @media (max-width: 560px) {
