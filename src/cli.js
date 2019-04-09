@@ -15,9 +15,19 @@ yargs
           default: process.env.PORT || 3000,
           describe: 'Specify the port to listen on',
         })
+        .option('config', {
+          default: process.env.NEOFETCH_CONFIG_FILE,
+          describe: 'Path to a neofetch config file',
+        })
+        .option('css', {
+          default: process.env.CUSTOM_CSS_FILE,
+          describe: 'Path to a custom css file',
+        })
     },
     handler: (argv) => {
-      process.env.PORT = argv.p
+      process.env.PORT = argv.port
+      if (argv.config) process.env.NEOFETCH_CONFIG_FILE = argv.config
+      if (argv.css) process.env.CUSTOM_CSS_FILE = argv.css
       require('./server.js')
     },
   })

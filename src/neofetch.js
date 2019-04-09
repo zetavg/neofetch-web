@@ -2,9 +2,9 @@ import os from 'os'
 import shell from 'shelljs'
 
 const Neofetch = {
-  getHTML: ({ showUsername = false } = {}) => new Promise((resolve, reject) => {
+  getHTML: ({ showUsername = false, configFile = null } = {}) => new Promise((resolve, reject) => {
     shell.exec(
-      'neofetch | aha --no-header --stylesheet',
+      `neofetch${configFile ? ` --config ${configFile}` : ''} | aha --no-header --stylesheet`,
       { silent: true },
       (code, stdout, stderr) => {
         if (code !== 0 || !stdout) {

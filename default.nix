@@ -5,6 +5,7 @@
 
   fetchurl ? pkgs.fetchurl,
   fetchgit ? pkgs.fetchgit,
+  # writeText ? pkgs.writeText,
 
   neofetch ? pkgs.neofetch,
   aha ? pkgs.aha,
@@ -17,11 +18,13 @@
   mkNpmPackageDerivation ? pkgs.mkNpmPackageDerivation,
 
   port ? null,
+  neofetchConfigFile ? null, # writeText "neofetch-web-config" '' ''
+  customCssFile ? null, # writeText "neofetch-web.css" '' ''
   ...
 }:
 let
   npmPackage = import ./npm-package.nix { inherit fetchurl fetchgit; };
-in mkNpmPackageDerivation (npmPackage // {
+in mkNpmPackageDerivation (npmPackage // rec {
   inherit nodejs;
   runtimeInputs = [
     neofetch
@@ -33,5 +36,8 @@ in mkNpmPackageDerivation (npmPackage // {
   ];
   env = {
     PORT = port;
+    NEOFETCH_CONFIG_FILE = neofetchConfigFile;
+    CUSTOM_CSS_FILE = customCssFile;
   };
+  devEnv = env;
 })

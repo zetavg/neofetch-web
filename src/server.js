@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
 
 import Koa from 'koa'
+import fs from 'fs'
 import Neofetch from './neofetch'
 import render from './render'
 
 const port = process.env.PORT || 3000
+const configFile = process.env.NEOFETCH_CONFIG_FILE
+const customCssFile = process.env.CUSTOM_CSS_FILE
+const css = customCssFile ? fs.readFileSync(customCssFile, 'utf8') : undefined
 
 const app = new Koa()
 
@@ -19,9 +23,9 @@ app.use(async (ctx) => {
       return
     }
 
-    const html = await Neofetch.getHTML()
+    const html = await Neofetch.getHTML({ configFile })
     const hostname = await Neofetch.getHostname()
-    const data = { title: hostname, body: html }
+    const data = { title: hostname, body: html, css }
     ctx.body = render(data)
     cache.data = data
     cache.time = currentTime
