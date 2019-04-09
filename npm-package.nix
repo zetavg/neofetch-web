@@ -11,6 +11,8 @@
   bin = {
     neofetch-web = "./lib/cli.js";
   };
+  startScript = "node ./lib/server.js || echo exited";
+  startupFile = "lib/server.js";
   dependencies = [
     {
       name = "at-babel--code-frame";
