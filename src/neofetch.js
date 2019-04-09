@@ -7,8 +7,8 @@ const Neofetch = {
       'neofetch | aha --no-header --stylesheet',
       { silent: true },
       (code, stdout, stderr) => {
-        if (code !== 0) {
-          reject(stderr)
+        if (code !== 0 || !stdout) {
+          reject(stderr || 'Error: No output')
           return
         }
 

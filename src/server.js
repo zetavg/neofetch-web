@@ -11,19 +11,23 @@ const app = new Koa()
 const cache = { data: null, time: -30000 }
 
 app.use(async (ctx) => {
-  const currentTime = (new Date()).getTime()
+  try {
+    const currentTime = (new Date()).getTime()
 
-  if (currentTime - cache.time < 30000) {
-    ctx.body = render(cache.data)
-    return
+    if (currentTime - cache.time < 30000) {
+      ctx.body = render(cache.data)
+      return
+    }
+
+    const html = await Neofetch.getHTML()
+    const hostname = await Neofetch.getHostname()
+    const data = { title: hostname, body: html }
+    ctx.body = render(data)
+    cache.data = data
+    cache.time = currentTime
+  } catch (e) {
+    console.error(e)
   }
-
-  const html = await Neofetch.getHTML()
-  const hostname = await Neofetch.getHostname()
-  const data = { title: hostname, body: html }
-  ctx.body = render(data)
-  cache.data = data
-  cache.time = currentTime
 })
 
 const server = app.listen(port, '0.0.0.0')
