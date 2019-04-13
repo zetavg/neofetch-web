@@ -30,6 +30,14 @@ let
     ];
   };
 in mkNodePackageWithRuntime nodejs {
+  buildInputs = [
+    neofetch
+    aha
+    gawk
+    nix
+    procps
+    e2fsprogs
+  ];
   environmentVariables = {
     PORT = port;
     NEOFETCH_CONFIG_FILE = neofetchConfigFile;
