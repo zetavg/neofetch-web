@@ -15,6 +15,9 @@
   startScript = "node ./lib/server.js || echo exited";
   startupFile = "lib/server.js";
   publicRoot = "public";
+  dependencyIgnoreRules = {
+    fsevents = { stdenv, ... }: !stdenv.isDarwin;
+  };
   dependencies = {
     at-babel-code-frame = {
       name = "at-babel-code-frame";
