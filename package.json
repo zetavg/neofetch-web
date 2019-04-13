@@ -7,15 +7,21 @@
     "neofetch-web": "./lib/cli.js"
   },
   "scripts": {
-    "start": "node ./lib/server.js || echo exited",
     "dev": "babel-node ./src/server.js || echo exited",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./lib/server.js || echo exited",
+    "prepack": "npm run build"
   },
+  "publicRoot": "./public",
   "author": "",
   "license": "ISC",
+  "files": [
+    "/lib/**/*",
+    "/public/**/*"
+  ],
   "eslintIgnore": [
-    "/lib/*"
+    "/lib/**/*"
   ],
   "dependencies": {
     "@babel/plugin-transform-async-to-generator": "^7.4.0",

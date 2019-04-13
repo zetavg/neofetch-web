@@ -3,8 +3,6 @@
     builtins.fetchTarball "https://git.io/zpkgs-archive-master"
   ) { },
 
-  fetchurl ? pkgs.fetchurl,
-  fetchgit ? pkgs.fetchgit,
   # writeText ? pkgs.writeText,
 
   neofetch ? pkgs.neofetch,
@@ -15,7 +13,7 @@
   e2fsprogs ? pkgs.e2fsprogs,
 
   nodejs ? pkgs.nodejs,
-  mkNpmPackageDerivation ? pkgs.mkNpmPackageDerivation,
+  mkNodePackageWithRuntime ? pkgs.mkNodePackageWithRuntime,
 
   port ? null,
   neofetchConfigFile ? null, # writeText "neofetch-web-config" '' ''
@@ -23,21 +21,17 @@
   ...
 }:
 let
-  npmPackage = import ./npm-package.nix { inherit fetchurl fetchgit; };
-in mkNpmPackageDerivation (npmPackage // rec {
-  inherit nodejs;
-  runtimeInputs = [
-    neofetch
-    aha
-    gawk
-    nix
-    procps
-    e2fsprogs
-  ];
-  env = {
+  npmPackage = import ./npm-package.nix {
+    srcs = [
+      ./package.json
+      ./babel.config.js
+      ./src
+    ];
+  };
+in mkNodePackageWithRuntime nodejs {
+  environmentVariables = {
     PORT = port;
     NEOFETCH_CONFIG_FILE = neofetchConfigFile;
     CUSTOM_CSS_FILE = customCssFile;
   };
-  devEnv = env;
-})
+} npmPackage
