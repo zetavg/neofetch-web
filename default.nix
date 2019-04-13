@@ -18,6 +18,7 @@
   port ? null,
   neofetchConfigFile ? null, # writeText "neofetch-web-config" '' ''
   customCssFile ? null, # writeText "neofetch-web.css" '' ''
+  cacheTimeout ? null, # writeText "neofetch-web.css" '' ''
   ...
 }:
 let
@@ -33,5 +34,6 @@ in mkNodePackageWithRuntime nodejs {
     PORT = port;
     NEOFETCH_CONFIG_FILE = neofetchConfigFile;
     CUSTOM_CSS_FILE = customCssFile;
+    CACHE_TIMEOUT = cacheTimeout;
   };
 } npmPackage

@@ -23,11 +23,16 @@ yargs
           default: process.env.CUSTOM_CSS_FILE,
           describe: 'Path to a custom css file',
         })
+        .option('cache-timeout', {
+          default: process.env.CACHE_TIMEOUT,
+          describe: 'Cache the output of neofetch for a certain time of milliseconds',
+        })
     },
     handler: (argv) => {
       process.env.PORT = argv.port
       if (argv.config) process.env.NEOFETCH_CONFIG_FILE = argv.config
       if (argv.css) process.env.CUSTOM_CSS_FILE = argv.css
+      if (argv['cache-timeout']) process.env.CACHE_TIMEOUT = argv.argv['cache-timeout']
       require('./server.js')
     },
   })

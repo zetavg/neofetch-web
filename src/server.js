@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000
 const configFile = process.env.NEOFETCH_CONFIG_FILE
 const customCssFile = process.env.CUSTOM_CSS_FILE
 const css = customCssFile ? fs.readFileSync(customCssFile, 'utf8') : undefined
+const cacheTimeout = process.env.CACHE_TIMEOUT ? parseInt(process.env.CACHE_TIMEOUT, 10)
+  : 30000
 
 const app = new Koa()
 
@@ -18,7 +20,7 @@ app.use(async (ctx) => {
   try {
     const currentTime = (new Date()).getTime()
 
-    if (currentTime - cache.time < 30000) {
+    if (currentTime - cache.time < cacheTimeout) {
       ctx.body = render(cache.data)
       return
     }
